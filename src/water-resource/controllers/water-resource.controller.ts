@@ -6,13 +6,15 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { WaterResourceService } from '../services/water-resource.service';
 import { PeriodDTO } from './periodDTO';
-
+@ApiTags('Water Resources')
 @Controller('water-resources')
 export class WaterResourcesController {
   constructor(private readonly service: WaterResourceService) {}
 
+  @ApiOperation({ description: `Retrives all water resources' data` })
   @Get()
   async findAll() {
     try {
@@ -23,7 +25,7 @@ export class WaterResourcesController {
     }
   }
 
-  //get water-resource data by id
+  @ApiOperation({ description: `Retrives one water resources' data by its id` })
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
@@ -34,6 +36,9 @@ export class WaterResourcesController {
     }
   }
 
+  @ApiOperation({
+    description: `Retrives water resources' log data according to resource's id`,
+  })
   @Get(':id/log')
   async findByWaterResource(@Param('id') id: string) {
     try {
@@ -44,6 +49,9 @@ export class WaterResourcesController {
     }
   }
 
+  @ApiOperation({
+    description: `Retrives all water resources' log data`,
+  })
   @Get('log/all')
   async findAllLogs() {
     try {
@@ -54,7 +62,9 @@ export class WaterResourcesController {
     }
   }
 
-  //get water-resource log by id
+  @ApiOperation({
+    description: `Retrives one water resources' log data according to log's id`,
+  })
   @Get('log/:id')
   async findOneLog(@Param('id') id: string) {
     try {
@@ -65,7 +75,10 @@ export class WaterResourcesController {
     }
   }
 
-  //get water-resource log by id and period
+  @ApiOperation({
+    description: `Retrives water resources' log data of a period 
+      according water resource id and period`,
+  })
   @Post('log/:id')
   async findByPeriod(@Param('id') id: string, @Body() period: PeriodDTO) {
     try {
@@ -80,7 +93,9 @@ export class WaterResourcesController {
     }
   }
 
-  //gererates a certain number of mocks
+  @ApiOperation({
+    description: `Gererates a certain number of water resources mocks and 10 corresponding logs`,
+  })
   @Post('random/:number')
   async insertNumberOfRandomicData(@Param('number') number: number) {
     try {

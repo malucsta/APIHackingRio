@@ -6,13 +6,15 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AirConditionerService } from '../services/air-conditioner.service';
 import { PeriodDTO } from './periodDTO';
-
+@ApiTags('Air Conditioner')
 @Controller('air-conditioner')
 export class AirConditionerController {
   constructor(private readonly service: AirConditionerService) {}
 
+  @ApiOperation({ description: 'Retrives all air-conditioner data' })
   @Get()
   async findAll() {
     try {
@@ -23,7 +25,7 @@ export class AirConditionerController {
     }
   }
 
-  //get air conditioner data by id
+  @ApiOperation({ description: 'Retrives one air-conditioner data by id' })
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
@@ -34,6 +36,7 @@ export class AirConditionerController {
     }
   }
 
+  @ApiOperation({ description: 'Turns on/off a certain air-conditioner' })
   @Post(':id')
   async toggleAir(@Param('id') id: string) {
     try {
@@ -44,6 +47,7 @@ export class AirConditionerController {
     }
   }
 
+  @ApiOperation({ description: 'Retrives all air-conditioner log data' })
   @Get('log/all')
   async findAllLogs() {
     try {
@@ -54,6 +58,7 @@ export class AirConditionerController {
     }
   }
 
+  @ApiOperation({ description: 'Retrives one air-conditioner log data' })
   @Get('log/:id')
   async findOneLog(@Param('id') id: string) {
     try {
@@ -64,6 +69,10 @@ export class AirConditionerController {
     }
   }
 
+  @ApiOperation({
+    description: `Retrives all air-conditioner log data of a period according 
+      to a certain device's id and period`,
+  })
   @Post('log/:id')
   async findByPeriod(@Param('id') id: string, @Body() period: PeriodDTO) {
     try {
@@ -78,6 +87,9 @@ export class AirConditionerController {
     }
   }
 
+  @ApiOperation({
+    description: `Gererates a certain number of device mocks and 10 corresponding logs`,
+  })
   //gererates a certain number of mocks
   @Post('random/:number')
   async insertNumberOfRandomicData(@Param('number') number: number) {
