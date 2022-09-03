@@ -84,7 +84,7 @@ export class WaterResourceService {
     const logArray = [];
     let totalVolume = 0;
 
-    Array.from({ length: 10 }, (_, i) => i + 1).map(async () => {
+    for (const index of Array.from({ length: 10 }, (_, i) => i + 1)) {
       //mock date
       const date = faker.date.recent(randomInt(2, 40));
       const formatedDate =
@@ -102,7 +102,7 @@ export class WaterResourceService {
           dailyVolume: volume,
         }),
       );
-    });
+    }
 
     const data = await this.repository.save({
       id: id,
