@@ -47,14 +47,23 @@ export class AirConditionerService {
     return data;
   }
 
-  async findLogByPeriod(id: string, startDate: Date, finishDate: Date) {
+  async findDeviceLogByPeriod(
+    deviceId: string,
+    startDate: Date,
+    finishDate: Date,
+  ) {
     const logs = await this.findAllLogs();
 
     if (logs instanceof Error) return Error('No entities were found');
 
     const data = logs
       .map((log) => {
-        if (log.date >= startDate && log.date <= finishDate) return log;
+        if (
+          log.date >= startDate &&
+          log.date <= finishDate &&
+          log.deviceId == deviceId
+        )
+          return log;
       })
       .filter((item) => item != null);
 
@@ -84,38 +93,41 @@ export class AirConditionerService {
     const { randomInt } = await import('crypto');
     const id = randomUUID();
 
+    const logArray = [];
+    let totalActiveHours = 0;
+
+    for (const index of Array.from({ length: 10 }, (_, i) => i + 1)) {
+      //mock date
+      const date = faker.date.recent(randomInt(2, 100));
+      if (date.getDay() == 0) date.setDate(1);
+      const formatedDate =
+        date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear();
+
+      const activeHours = randomInt(0, 24);
+      totalActiveHours += activeHours;
+
+      //mock data
+      logArray.push(
+        await this.logRepository.save({
+          id: randomUUID(),
+          deviceId: id,
+          date: formatedDate,
+          activeHours: activeHours,
+        }),
+      );
+    }
+
     const data = await this.repository.save({
       id: id,
       isActive: true,
       temperature: randomInt(16, 26),
       kiloWattsPerHour: randomInt(200, 500),
-      totalActiveHours: randomInt(0, 1000),
+      totalActiveHours: totalActiveHours,
     });
 
-    let date = faker.date.recent(randomInt(1, 10));
-    let formatedDate =
-      date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear();
-
-    const log01 = await this.logRepository.save({
-      id: id,
-      date: formatedDate,
-      activeHours: randomInt(0, 24),
-    });
-
-    date = faker.date.recent(randomInt(1, 10));
-    formatedDate =
-      date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear();
-
-    const log02 = await this.logRepository.save({
-      id: id,
-      date: formatedDate,
-      activeHours: randomInt(0, 24),
-    });
-
-    if (!data || !log01 || !log02) return Error('Error while inserting data');
-
-    //two logs just to make sure that a certain air has more than one row
-    return { created: data, log01: log01, log02: log02 };
+    if (!data || !logArray) return Error('Error while inserting data');
+    return { created: data, logs: logArray };
+    return null;
   }
 
   async insertNumberOfRandomicData(quantity: number) {

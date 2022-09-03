@@ -67,7 +67,7 @@ export class AirConditionerController {
   @Post('log/:id')
   async findByPeriod(@Param('id') id: string, @Body() period: PeriodDTO) {
     try {
-      const data = await this.service.findLogByPeriod(
+      const data = await this.service.findDeviceLogByPeriod(
         id,
         period.startDate,
         period.finishDate,

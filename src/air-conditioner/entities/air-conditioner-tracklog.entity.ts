@@ -5,6 +5,9 @@ export class AirConditionerTrackLogEntity {
   @PrimaryColumn({ type: 'uuid' })
   id: string;
 
+  @Column({ type: 'uuid' })
+  deviceId: string;
+
   @Column({ type: 'date', nullable: false })
   date: Date;
 
