@@ -86,18 +86,4 @@ export class AirConditionerController {
       throw new InternalServerErrorException();
     }
   }
-
-  @ApiOperation({
-    description: `Gererates a certain number of device mocks and 10 corresponding logs`,
-  })
-  //gererates a certain number of mocks
-  @Post('random/:number')
-  async insertNumberOfRandomicData(@Param('number') number: number) {
-    try {
-      const data = await this.service.insertNumberOfRandomicData(number);
-      return { data: data };
-    } catch (error) {
-      throw new InternalServerErrorException();
-    }
-  }
 }
