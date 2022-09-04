@@ -92,17 +92,4 @@ export class WaterResourcesController {
       throw new InternalServerErrorException();
     }
   }
-
-  @ApiOperation({
-    description: `Gererates a certain number of water resources mocks and 10 corresponding logs`,
-  })
-  @Post('random/:number')
-  async insertNumberOfRandomicData(@Param('number') number: number) {
-    try {
-      const data = await this.service.insertNumberOfRandomicData(number);
-      return { data: data };
-    } catch (error) {
-      throw new InternalServerErrorException();
-    }
-  }
 }
