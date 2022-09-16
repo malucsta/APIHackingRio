@@ -22,17 +22,21 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Descrição
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+API desenvolvida durante a edição de 2022 da maratona Hackin-RIO. 
 
-## Installation
+A [proposta](https://www.youtube.com/watch?v=MbaPSRHuYrI) do desafio era relativa à diminuição do impacto ambiental que o setor hoteleiro produz no mundo. A API tem o objetivo de simular aparelhos inteligentes que sejam capazes de fornecer uma API para que hotéis possam adotar um software que sirva para realizar o gerenciamento centralizado desses dispositivos. Neste caso, simulamos a de um ar-condicionado e de um dispositivo que controle a vazão de água para as instalações. 
+
+[Vídeo Final](https://www.youtube.com/watch?v=wMZp9kAFPng)
+
+## Instalação
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+## Startando o projeto
 
 ```bash
 # development
@@ -40,34 +44,4 @@ $ npm run start
 
 # watch mode
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
